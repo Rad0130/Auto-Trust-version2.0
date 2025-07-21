@@ -1,0 +1,21 @@
+/* src/styles/buttons.css */
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+.delete-btn { background-color: #e60023; }
+.delete-btn:hover { background-color: #c0392b; }
