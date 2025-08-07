@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 
 const authRoutes = require("./routes/auth");
 const carRoutes = require("./routes/car");
+const userRoutes = require("./routes/user");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 // ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/cars", carRoutes);
+app.use("/api/user", userRoutes);
 
 // ✅ DB Connection
 mongoose.connect(process.env.MONGO_URI, {

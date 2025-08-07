@@ -1,77 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../../utils/api";
 import "../../styles/AuthPages.css";
 
 const CarUploadForm = () => {
-  const [car, setCar] = useState({
+  const [formData, setFormData] = useState({
     title: "",
     brand: "",
     model: "",
     year: "",
     price: "",
     paymentType: "cash",
-    description: "",
+    description: ""
   });
   const [image, setImage] = useState(null);
-  const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    // Check if token exists in localStorage on mount
-    const savedToken = localStorage.getItem("token");
-    setToken(savedToken);
-  }, []);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setCar({ ...car, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (!token) {
-      alert("You must be logged in to upload a car.");
+    if (!image) {
+      alert("Please select an image");
+      setLoading(false);
       return;
     }
 
-    const formData = new FormData();
-    for (let key in car) {
-      formData.append(key, car[key]);
-    }
-    if (image) {
-      formData.append("image", image);
-    }
+    const data = new FormData();
+    data.append("image", image);
+    Object.keys(formData).forEach(key => {
+      data.append(key, formData[key]);
+    });
 
     try {
-      const res = await API.post("/cars", formData, {
+      await API.post("/cars", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
+          "Content-Type": "multipart/form-data"
+        }
       });
       alert("Car uploaded successfully!");
-      // Optionally reset form here
+      navigate("/user-dashboard");
     } catch (err) {
-      console.error("Upload failed", err);
+      console.error("Upload failed:", err);
       alert("Upload failed: " + (err.response?.data?.message || err.message));
+    } finally {
+      setLoading(false);
     }
   };
 
-  // If no token, show message instead of form
-  if (!token) {
-    return (
-      <div className="text-center mt-10">
-        <h2 className="text-xl font-semibold text-red-500">
-          Please log in or register to upload a car.
-        </h2>
-      </div>
-    );
-  }
-
-  // Render form if logged in
   return (
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
@@ -80,7 +67,7 @@ const CarUploadForm = () => {
           type="text"
           name="title"
           placeholder="Car Title"
-          value={car.title}
+          value={formData.title}
           onChange={handleChange}
           required
         />
@@ -88,7 +75,7 @@ const CarUploadForm = () => {
           type="text"
           name="brand"
           placeholder="Brand"
-          value={car.brand}
+          value={formData.brand}
           onChange={handleChange}
           required
         />
@@ -96,7 +83,7 @@ const CarUploadForm = () => {
           type="text"
           name="model"
           placeholder="Model"
-          value={car.model}
+          value={formData.model}
           onChange={handleChange}
           required
         />
@@ -104,7 +91,7 @@ const CarUploadForm = () => {
           type="number"
           name="year"
           placeholder="Year"
-          value={car.year}
+          value={formData.year}
           onChange={handleChange}
           required
         />
@@ -112,14 +99,15 @@ const CarUploadForm = () => {
           type="number"
           name="price"
           placeholder="Price"
-          value={car.price}
+          value={formData.price}
           onChange={handleChange}
           required
         />
         <select
           name="paymentType"
-          value={car.paymentType}
+          value={formData.paymentType}
           onChange={handleChange}
+          required
         >
           <option value="cash">Cash</option>
           <option value="installment">Installment</option>
@@ -127,17 +115,32 @@ const CarUploadForm = () => {
         <textarea
           name="description"
           placeholder="Description"
-          value={car.description}
+          value={formData.description}
           onChange={handleChange}
-        ></textarea>
+        />
         <input
           type="file"
-          name="image"
-          accept="image/*"
           onChange={handleImageChange}
+          accept="image/*"
+          required
         />
-        <button type="submit" className="btn">
-          Submit
+        <button 
+          type="submit" 
+          disabled={loading}
+          style={{
+            display: "inline-block",
+            width: "100%",
+            padding: "0.7rem",
+            backgroundColor: loading ? "#999" : "#333",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            fontWeight: "600",
+            cursor: loading ? "not-allowed" : "pointer",
+            transition: "background-color 0.3s ease"
+          }}
+        >
+          {loading ? "Uploading..." : "Submit"}
         </button>
       </form>
     </div>

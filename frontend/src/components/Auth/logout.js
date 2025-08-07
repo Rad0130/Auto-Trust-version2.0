@@ -1,5 +1,4 @@
-// frontend/src/components/Auth/Logout.js
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -10,7 +9,7 @@ const Logout = () => {
   useEffect(() => {
     logout(); // Clear user data
     navigate('/'); // Redirect to home
-  }, []);
+  }, [logout, navigate]);
 
   return null; // No UI needed
 };

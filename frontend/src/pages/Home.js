@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/AuthPages.css';
-import '../styles/Navbar.css';
 
 const Home = () => {
   return (

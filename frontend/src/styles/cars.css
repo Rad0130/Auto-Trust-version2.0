@@ -24,15 +24,24 @@
   border-radius: 4px;
 }
 
-.delete-btn {
-  background: #ff4444;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+h2 {
+  color: yellow;
 }
 
-h2{
-    color: yellow;
+/* Remove delete button styles and add purchase button styles */
+.purchase-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.purchase-btn:hover {
+  background-color: #0b7dda;
 }
