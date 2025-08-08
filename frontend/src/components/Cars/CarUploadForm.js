@@ -38,13 +38,15 @@ const CarUploadForm = () => {
     }
 
     const data = new FormData();
-    data.append("image", image);
+    // Append all form fields
     Object.keys(formData).forEach(key => {
       data.append(key, formData[key]);
     });
+    // Append the image file last
+    data.append("image", image);
 
     try {
-      await API.post("/cars", formData, {
+      await API.post("/cars", data, {  // Changed from formData to data
         headers: {
           "Content-Type": "multipart/form-data"
         }
