@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+// const api = axios.create({
+//   baseURL: 'http://localhost:5000/api',
+// });
+
+const API = axios.create({
+  baseURL: "https://auto-trust-version2-0.onrender.com/", // <-- Change this
+  withCredentials: true,
 });
 
 // Add token to every request if it exists
