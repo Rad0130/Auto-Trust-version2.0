@@ -4,7 +4,7 @@ import axios from 'axios';
 //   baseURL: 'http://localhost:5000/api',
 // });
 
-const API = axios.create({
+const api = axios.create({
   baseURL: "https://auto-trust-version2-0.onrender.com/", // <-- Change this
   withCredentials: true,
 });
