@@ -16,20 +16,21 @@ exports.createCar = async (req, res) => {
     res.status(201).json(savedCar);
   } catch (err) {
     console.error("Upload error:", err);
-    res.status(500).json({ 
+    res.status(500).json({
       message: "Failed to create car",
-      error: err.message 
+      error: err.message
     });
   }
 };
 
+// MODIFIED: Only fetches approved cars for public view
 exports.getAllCars = async (req, res) => {
-  try {
-    const cars = await Car.find().populate("seller", "name email");
-    res.json(cars);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch cars", error: err });
-  }
+    try {
+        const cars = await Car.find({ isApproved: true }).populate("seller", "name email");
+        res.json(cars);
+    } catch (err) {
+        res.status(500).json({ message: "Failed to fetch cars", error: err });
+    }
 };
 
 exports.getCarById = async (req, res) => {
@@ -83,4 +84,37 @@ exports.updateCar = async (req, res) => {
       error: err.message 
     });
   }
+};
+
+exports.approveCar = async (req, res) => {
+    try {
+        const car = await Car.findById(req.params.id);
+        if (!car) {
+            return res.status(404).json({ message: "Car not found" });
+        }
+        car.isApproved = true;
+        await car.save();
+        res.json({ message: "Car approved successfully", car });
+    } catch (err) {
+        res.status(500).json({ message: "Error approving car" });
+    }
+};
+
+// ... other functions
+
+// ... (rest of the file)
+
+// ... (rest of the file)
+
+exports.getPendingCars = async (req, res) => {
+    try {
+        console.log("Attempting to find pending cars...");
+        const pendingCars = await Car.find({ isApproved: false }).populate("seller", "name email");
+        console.log("Successfully found and populated pending cars:", pendingCars.length);
+        res.json(pendingCars);
+    } catch (err) {
+        // This will now log the specific database error that was causing the 500
+        console.error("Error during database query in getPendingCars:", err.message);
+        res.status(500).json({ message: "Failed to fetch pending cars" });
+    }
 };

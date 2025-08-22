@@ -16,6 +16,8 @@ const Navbar = () => {
           
           {user && <Link to="/upload-car" className="nav-btn">Upload Car</Link>}
           {user && <Link to="/user-dashboard" className="nav-btn">Dashboard</Link>}
+          {user && user.isAdmin && <Link to="/admin-dashboard" className="nav-btn">Admin Panel</Link>}
+          
 
           {!user ? (
             <>

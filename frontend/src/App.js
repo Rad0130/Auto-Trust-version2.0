@@ -14,6 +14,8 @@ import Logout from "./components/Auth/logout";
 import "./styles/Navbar.css";
 import "./styles/buttons.css";
 import "./styles/Dashboard.css";
+import AdminProtectedRoute from "./components/Auth/AdminProtectedRoute";
+import AdminDashboard from "./components/Admin/AdminDashboard";
 
 function App() {
   return (
@@ -49,6 +51,14 @@ function App() {
                 <EditCar />
               </ProtectedRoute>
             }
+          />
+          <Route
+              path="/admin-dashboard"
+              element={
+                  <AdminProtectedRoute>
+                      <AdminDashboard />
+                  </AdminProtectedRoute>
+              }
           />
         </Routes>
       </Router>

@@ -77,18 +77,6 @@ const UserDashboard = () => {
     }
   };
 
-  const handleApproveCar = async (carId) => {
-    try {
-      await API.patch(`/cars/${carId}/approve`);
-      setUserCars(userCars.map(car => 
-        car._id === carId ? {...car, isApproved: true} : car
-      ));
-      setSuccessMessage("Car approved successfully");
-    } catch (err) {
-      alert("Approval failed: " + (err.response?.data?.message || err.message));
-    }
-  };
-
   if (loading) return <div className="dashboard-loading">Loading...</div>;
 
   return (
@@ -206,14 +194,6 @@ const UserDashboard = () => {
                     >
                       Delete
                     </button>
-                    {!car.isApproved && user.isAdmin && (
-                      <button
-                        onClick={() => handleApproveCar(car._id)}
-                        className="approve-btn"
-                      >
-                        Approve
-                      </button>
-                    )}
                   </div>
                 </div>
               ))}
