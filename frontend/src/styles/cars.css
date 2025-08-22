@@ -30,6 +30,7 @@
 .car-image {
   object-fit: cover;
   border-radius: 8px;
+  align-self: auto;
 }
 
 h2 {
