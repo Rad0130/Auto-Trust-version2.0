@@ -37,7 +37,7 @@ const CarList = () => {
         <div className="car-grid">
           {cars.map((car) => (
             <div key={car._id} className="car-card">
-              {car.image && <img src={car.image} alt={car.title} className="car-image" />}
+              {car.image && <img src={car.image} alt={car.title} className="car-image" style={{width:"100%"}} />}
               <h3>{car.title}</h3>
               <p>Brand: {car.brand}</p>
               <p>Model: {car.model}</p>
