@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://auto-trust-version2-0.onrender.com/api", // <-- Change this
+  baseURL: "https://auto-trust-version2-0.onrender.com/api",
   withCredentials: true,
 });
 
-// Add token to every request if it exists
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
