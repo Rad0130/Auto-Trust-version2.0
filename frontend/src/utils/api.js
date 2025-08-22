@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://auto-trust-version2-0.onrender.com/", // <-- Change this
+  baseURL: "https://auto-trust-version2-0.onrender.com/api", // <-- Change this
   withCredentials: true,
 });
 
