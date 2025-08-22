@@ -1,13 +1,16 @@
 import axios from 'axios';
 
-// Create a single API instance
+// const api = axios.create({
+//   baseURL: 'http://localhost:5000/api',
+// });
+
 const API = axios.create({
-  baseURL: "https://auto-trust-version2-0.onrender.com/api", // <-- Corrected URL with /api prefix
+  baseURL: "https://auto-trust-version2-0.onrender.com/", // <-- Change this
   withCredentials: true,
 });
 
 // Add token to every request if it exists
-API.interceptors.request.use((config) => { // <-- Use 'API' here
+api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -15,4 +18,4 @@ API.interceptors.request.use((config) => { // <-- Use 'API' here
   return config;
 });
 
-export default API; // <-- Export 'API'
+export default api;
