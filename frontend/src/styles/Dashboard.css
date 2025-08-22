@@ -1,42 +1,40 @@
-/* Previous profile styles remain... */
-
 /* New Tab Styles */
 .dashboard-tabs {
-  display: flex;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 1.5rem;
+ display: flex;
+ border-bottom: 1px solid #ddd;
+ margin-bottom: 1.5rem;
 }
 
 .tab-btn {
-  padding: 0.75rem 1.5rem;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #666;
+ padding: 0.75rem 1.5rem;
+ background: none;
+ border: none;
+ border-bottom: 3px solid transparent;
+ cursor: pointer;
+ font-size: 1rem;
+ font-weight: 500;
+ color: #666;
 }
 
 .tab-btn.active {
-  color: #3498db;
-  border-bottom-color: #3498db;
+ color: #3498db;
+ border-bottom-color: #3498db;
 }
 
 /* Car Listing Styles */
 .user-cars-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+ gap: 1.5rem;
+ margin-top: 1rem;
 }
 
 .user-car-card {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+ background: white;
+ border-radius: 8px;
+ overflow: hidden;
+ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ transition: transform 0.2s;
 }
 
 .user-car-card:hover {
@@ -399,4 +397,70 @@
   text-align: center;
   padding: 2rem;
   color: #666;
+}
+
+@media (max-width: 768px) {
+ .dashboard-tabs {
+  flex-wrap: wrap;
+ }
+
+ .user-cars-grid {
+  grid-template-columns: 1fr; /* Stack cars on a single column */
+  gap: 1rem;
+ }
+
+ .user-car-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .user-car-card img {
+  width: 40%;
+  height: auto;
+ }
+
+ .car-details {
+  flex: 1;
+  padding: 1rem;
+ }
+
+ .car-actions {
+  flex-direction: column;
+  padding: 1rem 0;
+  width: 100%;
+ }
+
+ .car-actions button {
+  width: 90%;
+  margin: 0 auto;
+ }
+}
+
+@media (max-width: 480px) {
+ .dashboard-container {
+  padding: 0 0.5rem;
+ }
+
+ .user-car-card {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+ }
+
+ .user-car-card img {
+  width: 100%;
+  height: auto;
+ }
+
+ .car-actions {
+  flex-direction: row;
+  justify-content: space-around;
+ }
+
+ .car-actions button {
+  width: 48%;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+ }
 }

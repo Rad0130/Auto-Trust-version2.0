@@ -1,0 +1,171 @@
+.admin-container {
+ max-width: 1200px;
+ margin: 2rem auto;
+ padding: 0 1rem;
+}
+
+.admin-tabs {
+ display: flex;
+ margin-bottom: 2rem;
+ border-bottom: 2px solid #ddd;
+ flex-wrap: wrap; /* Allows tabs to wrap on smaller screens */
+}
+
+.admin-tabs button {
+ padding: 0.75rem 1.5rem;
+ background: none;
+ border: none;
+ cursor: pointer;
+ font-size: 1rem;
+ font-weight: 500;
+ color: #666;
+ border-bottom: 3px solid transparent;
+}
+
+.admin-tabs button.active {
+ color: #3498db;
+ border-bottom-color: #3498db;
+}
+
+.pending-cars h2,
+.user-management h2 {
+ margin-bottom: 1.5rem;
+ color: #333;
+}
+
+.car-list {
+ display: grid;
+ gap: 1.5rem;
+}
+
+/* Make car cards stack vertically on small screens */
+.car-card {
+ display: flex;
+ background: white;
+ border-radius: 8px;
+ overflow: hidden;
+ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.car-card img {
+ width: 200px;
+ height: 150px;
+ object-fit: cover;
+}
+
+.car-details {
+ flex: 1;
+ padding: 1rem;
+}
+
+.car-details h3 {
+ margin: 0 0 0.5rem;
+ color: #333;
+}
+
+.car-details p {
+ margin: 0.25rem 0;
+ color: #666;
+}
+
+.car-actions {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ padding: 1rem;
+ gap: 0.5rem;
+}
+
+.approve-btn,
+.reject-btn {
+ background-color: #4caf50;
+ color: white;
+ padding: 0.5rem 1rem;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+}
+
+.reject-btn {
+ background-color: #f44336;
+}
+
+/* Make table responsive by wrapping content or using scroll */
+.users-table {
+ width: 100%;
+ border-collapse: collapse;
+ background: white;
+ border-radius: 8px;
+ overflow: hidden;
+ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.users-table th,
+.users-table td {
+ padding: 1rem;
+ text-align: left;
+ border-bottom: 1px solid #eee;
+}
+
+.users-table th {
+ background-color: #f8f9fa;
+ font-weight: 600;
+ color: #333;
+}
+
+.verify-btn {
+ background-color: #2196f3;
+ color: white;
+ padding: 0.5rem 1rem;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+}
+
+/* --- Media Queries --- */
+
+@media (max-width: 768px) {
+ .car-card {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+ }
+
+ .car-card img {
+  width: 100%;
+  height: auto;
+ }
+
+ .car-details,
+ .car-actions {
+  text-align: center;
+  padding: 1rem 0.5rem;
+  width: 100%;
+ }
+
+ .car-actions {
+  flex-direction: row;
+  justify-content: space-around;
+ }
+
+ .approve-btn,
+ .reject-btn,
+ .verify-btn {
+  width: 48%; /* Adjust button width for small screens */
+ }
+}
+
+@media (max-width: 480px) {
+ .users-table th,
+ .users-table td {
+  font-size: 0.8rem;
+  padding: 0.5rem;
+ }
+
+ .approve-btn,
+ .reject-btn,
+ .verify-btn {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+ }
+}

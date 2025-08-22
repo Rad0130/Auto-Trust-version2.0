@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/api";
-import "../../styles/Dashboard.css";
+import "../../styles/AdminDashboard.css";
 
 const AdminDashboard = () => {
     const [pendingCars, setPendingCars] = useState([]);
