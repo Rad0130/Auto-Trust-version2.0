@@ -54,17 +54,24 @@
   font-weight: 500;
 }
 
-.logout:hover{
+.logout:hover {
   background-color: red;
   color: white;
 }
 
-/* Responsive Navbar */
+/* Hamburger icon for mobile */
+.hamburger {
+  display: none; /* Hidden by default */
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  font-size: 2rem;
+  color: #fff;
+}
+
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
-  .nav-content{
-    flex-direction: column;
-  }
-  }
   .nav-content {
     flex-direction: column;
     text-align: center;
@@ -74,12 +81,18 @@
     margin-bottom: 1rem;
   }
 
-  .nav-links {
-    flex-direction: column;
-    gap: 0.5rem;
-    display: none; /* Initially hide */
+  /* Show the hamburger menu on small screens */
+  .hamburger {
+    display: block;
   }
 
+  .nav-links {
+    display: none; /* Hide the menu by default */
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Display the menu when it's active */
   .nav-links.active {
     display: flex;
   }
@@ -88,8 +101,4 @@
     padding: 1rem 2rem;
     width: 100%;
   }
-
-  .hamburger {
-    display: block;
-    cursor: pointer;
-  }
+}
