@@ -70,6 +70,10 @@
   color: #fff;
 }
 
+.user-greeting{
+  margin-left: 20rem;
+}
+
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .nav-content {
