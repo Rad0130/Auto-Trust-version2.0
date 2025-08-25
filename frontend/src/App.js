@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
@@ -16,18 +15,22 @@ import "./styles/buttons.css";
 import "./styles/Dashboard.css";
 import AdminProtectedRoute from "./components/Auth/AdminProtectedRoute";
 import AdminDashboard from "./components/Admin/AdminDashboard";
+import NotificationSystem from "./components/Notifications/NotificationSystem";
+import CarDetail from "./components/Cars/caeDetail";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
+        {/* Navbar removed from here as it's now included in individual pages */}
+        <NotificationSystem /> {/* Render the notification system here */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cars" element={<CarList />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/cars/:id" element={<CarDetail />} />
           <Route
             path="/upload-car"
             element={
@@ -53,12 +56,12 @@ function App() {
             }
           />
           <Route
-              path="/admin-dashboard"
-              element={
-                  <AdminProtectedRoute>
-                      <AdminDashboard />
-                  </AdminProtectedRoute>
-              }
+            path="/admin-dashboard"
+            element={
+              <AdminProtectedRoute>
+                <AdminDashboard />
+              </AdminProtectedRoute>
+            }
           />
         </Routes>
       </Router>

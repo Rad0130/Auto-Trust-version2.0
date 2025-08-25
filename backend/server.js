@@ -1,15 +1,47 @@
+// ... existing imports
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const http = require('http'); // Import Node.js http module
+const { Server } = require("socket.io"); // Import Socket.IO Server class
 
 const authRoutes = require("./routes/auth");
 const carRoutes = require("./routes/car");
 const userRoutes = require("./routes/user");
+const adminRoutes = require("./routes/admin"); // New import for admin routes
 
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app); // Create an HTTP server instance using your Express app
+
+// ✅ Socket.IO Setup
+const io = new Server(server, {
+  cors: {
+    origin: "https://auto-trust-version2-0.vercel.app", // Allow connections from your frontend
+    methods: ["GET", "POST"]
+  }
+});
+
+const connectedUsers = {};
+
+io.on('connection', (socket) => {
+  console.log('🔗 A user connected:', socket.id);
+
+  socket.on('joinUser', (userId) => {
+    socket.join(userId);
+    connectedUsers[socket.id] = userId;
+    console.log(`User ${userId} joined their private room.`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('❌ User disconnected:', socket.id);
+    delete connectedUsers[socket.id];
+  });
+});
+
+app.set('socketio', io); // Expose io object so other modules can use it to emit events
 
 // ✅ Middleware
 app.use(cors({ origin: "https://auto-trust-version2-0.vercel.app", credentials: true }));
@@ -20,6 +52,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/cars", carRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/admin", adminRoutes); // New admin routes
 
 // ✅ DB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -29,8 +62,10 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("✅ MongoDB Connected"))
 .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// ✅ Start Server
+// ✅ Start Server (using the http server, not the express app directly)
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => { // Use server.listen instead of app.listen
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+// module.exports = { app, server, io }; // Or export these if needed elsewhere

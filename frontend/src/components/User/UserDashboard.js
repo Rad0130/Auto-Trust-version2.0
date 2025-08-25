@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../utils/api";
 import { AuthContext } from "../../context/AuthContext";
+import Navbar from "../Navbar";
 import "../../styles/Dashboard.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -77,140 +78,163 @@ const UserDashboard = () => {
     }
   };
 
+  const handleApproveCar = async (carId) => {
+    try {
+      await API.patch(`/cars/${carId}/approve`);
+      setUserCars(userCars.map(car =>
+        car._id === carId ? {...car, isApproved: true} : car
+      ));
+      setSuccessMessage("Car approved successfully");
+    } catch (err) {
+      alert("Approval failed: " + (err.response?.data?.message || err.message));
+    }
+  };
+
   if (loading) return <div className="dashboard-loading">Loading...</div>;
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-tabs">
-        <button
-          className={`tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
-          onClick={() => setActiveTab('profile')}
-        >
-          My Profile
-        </button>
-        <button
-          className={`tab-btn ${activeTab === 'cars' ? 'active' : ''}`}
-          onClick={() => setActiveTab('cars')}
-        >
-          My Car Listings ({userCars.length})
-        </button>
-      </div>
-
-      {successMessage && (
-        <div className="success-message">{successMessage}</div>
-      )}
-
-      {activeTab === 'profile' ? (
-        <div className="profile-section">
-          <h2>Profile Settings</h2>
-          <form onSubmit={handleSubmit(handleProfileUpdate)}>
-            <div className="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                defaultValue={user?.name}
-                {...register("name")}
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                defaultValue={user?.email}
-                {...register("email")}
-              />
-            </div>
-
-            <h3>Change Password</h3>
-            
-            <div className="form-group">
-              <label>Current Password</label>
-              <input
-                type="password"
-                {...register("currentPassword")}
-              />
-              {errors.currentPassword && (
-                <span className="error">{errors.currentPassword.message}</span>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label>New Password</label>
-              <input
-                type="password"
-                {...register("newPassword")}
-              />
-              {errors.newPassword && (
-                <span className="error">{errors.newPassword.message}</span>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label>Confirm New Password</label>
-              <input
-                type="password"
-                {...register("confirmPassword")}
-              />
-              {errors.confirmPassword && (
-                <span className="error">{errors.confirmPassword.message}</span>
-              )}
-            </div>
-
-            <button type="submit" className="update-btn">
-              Update Profile
-            </button>
-          </form>
+    <div>
+      <Navbar />
+      <div className="dashboard-container">
+        <div className="dashboard-tabs">
+          <button
+            className={`tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
+            onClick={() => setActiveTab('profile')}
+          >
+            My Profile
+          </button>
+          <button
+            className={`tab-btn ${activeTab === 'cars' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cars')}
+          >
+            My Car Listings ({userCars.length})
+          </button>
         </div>
-      ) : (
-        <div className="cars-section">
-          <h2>Manage Your Car Listings</h2>
-          
-          {userCars.length > 0 ? (
-            <div className="user-cars-grid">
-              {userCars.map((car) => (
-                <div key={car._id} className="user-car-card">
-                  <img src={car.image} alt={car.title} />
-                  <div className="car-details">
-                    <h3>{car.title}</h3>
-                    <p><strong>Brand:</strong> {car.brand}</p>
-                    <p><strong>Price:</strong> ${car.price}</p>
-                    <p><strong>Status:</strong> 
-                      <span className={`status ${car.isApproved ? 'approved' : 'pending'}`}>
-                        {car.isApproved ? 'Approved' : 'Pending Approval'}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="car-actions">
-                    <button 
-                      onClick={() => navigate(`/edit-car/${car._id}`)}
-                      className="edit-btn"
-                    >
-                      Edit
-                    </button>
-                    <button 
-                      onClick={() => handleDeleteCar(car._id)}
-                      className="delete-btn"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="no-cars">
-              <p>You haven't listed any cars yet.</p>
-              <button 
-                onClick={() => navigate('/upload-car')}
-                className="primary-btn"
-              >
-                List a New Car
+
+        {successMessage && (
+          <div className="success-message">{successMessage}</div>
+        )}
+
+        {activeTab === 'profile' ? (
+          <div className="profile-section">
+            <h2>Profile Settings</h2>
+            <form onSubmit={handleSubmit(handleProfileUpdate)}>
+              <div className="form-group">
+                <label>Name</label>
+                <input
+                  type="text"
+                  defaultValue={user?.name}
+                  {...register("name")}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  defaultValue={user?.email}
+                  {...register("email")}
+                />
+              </div>
+
+              <h3>Change Password</h3>
+              
+              <div className="form-group">
+                <label>Current Password</label>
+                <input
+                  type="password"
+                  {...register("currentPassword")}
+                />
+                {errors.currentPassword && (
+                  <span className="error">{errors.currentPassword.message}</span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label>New Password</label>
+                <input
+                  type="password"
+                  {...register("newPassword")}
+                />
+                {errors.newPassword && (
+                  <span className="error">{errors.newPassword.message}</span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label>Confirm New Password</label>
+                <input
+                  type="password"
+                  {...register("confirmPassword")}
+                />
+                {errors.confirmPassword && (
+                  <span className="error">{errors.confirmPassword.message}</span>
+                )}
+              </div>
+
+              <button type="submit" className="update-btn">
+                Update Profile
               </button>
-            </div>
-          )}
-        </div>
-      )}
+            </form>
+          </div>
+        ) : (
+          <div className="cars-section">
+            <h2>Manage Your Car Listings</h2>
+            
+            {userCars.length > 0 ? (
+              <div className="user-cars-grid">
+                {userCars.map((car) => (
+                  <div key={car._id} className="user-car-card">
+                    <img src={car.image} alt={car.title} />
+                    <div className="car-details">
+                      <h3>{car.title}</h3>
+                      <p><strong>Brand:</strong> {car.brand}</p>
+                      <p><strong>Price:</strong> ${car.price}</p>
+                      <p><strong>Status:</strong>
+                        <span className={`status ${car.isApproved ? 'approved' : 'pending'}`}>
+                          {car.isApproved ? 'Approved' : 'Pending Approval'}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="car-actions">
+                      <button
+                        onClick={() => navigate(`/edit-car/${car._id}`)}
+                        className="edit-btn"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCar(car._id)}
+                        className="delete-btn"
+                      >
+                        Delete
+                      </button>
+                      {!car.isApproved && user.isAdmin && (
+                        <button
+                          onClick={() => handleApproveCar(car._id)}
+                          className="approve-btn"
+                        >
+                          Approve
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="no-cars">
+                <p>You haven't listed any cars yet.</p>
+                <button
+                  onClick={() => navigate('/upload-car')}
+                  className="primary-btn"
+                >
+                  List a New Car
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,58 +1,165 @@
-.container {
+/* Base Styles */
+body {
   background: url('../../../frontend/images/autotrust.png') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
 }
 
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 0; /* Remove padding */
+}
+
+.search-container {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem 1rem;
+  border-radius: 0 0 10px 10px; /* Rounded corners only at bottom */
+  width: 98%; /* Full width */
+  margin-bottom: 0; /* Remove margin */
+}
+
+.search-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.search-subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 50%;
+  margin: auto;
+}
+
+.search-form input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-btn {
+  background-color: #e60023;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Car Grid and Card Styles */
 .car-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  padding: 20px;
 }
 
+/* Car Card Style */
 .car-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   padding: 15px;
   border-radius: 8px;
   position: relative;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-  text-align: center;
-
+  justify-content: space-between;
 }
 
-.car-card:hover {
- transform: translateY(-5px);
-}
-
+/* Image Style */
 .car-image {
+  width: 100%;
+  height: 180px;
   object-fit: cover;
-  border-radius: 8px;
-  align-self: auto;
+  border-radius: 4px;
+  margin-bottom: 15px;
 }
 
-h2 {
-  color: yellow;
+/* Car Info */
+.car-card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+  font-weight: bold;
 }
 
+.car-card p {
+  font-size: 1rem;
+  margin: 0.3rem 0;
+  color: #333;
+}
 
-/* Remove delete button styles and add purchase button styles */
 .purchase-btn {
   display: block;
   width: 100%;
   padding: 0.5rem;
-  background-image: linear-gradient(to right, blue, purple);
+  background-color: #2196F3;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 0.5rem;
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .purchase-btn:hover {
-  background-image: linear-gradient(to right, purple , blue);
+  background-color: #0b7dda;
 }
 
+/* Desktop Style */
+@media (min-width: 1024px) {
+  .car-grid {
+    grid-template-columns: repeat(4, 1fr); /* Show 4 cards per row */
+    padding: 40px;
+  }
+
+  /* Adjust card layout for larger screens */
+  .car-card {
+    padding: 20px;
+    height: 450px; /* Give enough space for content */
+  }
+
+  .car-image {
+    height: 250px; /* Ensure the image has enough space */
+  }
+}
+
+h2 {
+  color: white;
+  text-align: center;
+  padding: 20px 0 0 0;
+  margin: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .search-form {
+    width: 90%;
+  }
+
+  .search-title {
+    font-size: 2rem;
+  }
+
+  .search-subtitle {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,77 @@
+/* Notification Styles */
+.notification-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+}
+
+/* Make notification visible when class 'visible' is added */
+.notification-container.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Notification Card Styling */
+.notification-card {
+  background: #4caf50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  animation: slideIn 0.5s ease-in-out; /* Added sliding animation */
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.notification-card p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Close Button Styles */
+.close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* Close button hover effect */
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* --- Media Queries for smaller screens --- */
+@media (max-width: 480px) {
+  .notification-card {
+    padding: 10px 15px; /* Adjust padding for small screens */
+  }
+
+  .notification-card p {
+    font-size: 0.9rem;
+  }
+
+  .close-btn {
+    font-size: 1.3rem; /* Make the close button slightly smaller */
+  }
+}

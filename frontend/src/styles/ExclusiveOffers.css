@@ -1,0 +1,115 @@
+/* exclusiveOffers.css */
+.exclusive-offers-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px; /* Add some radius to the image for smoother edges */
+}
+
+.offer-details {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+  color: white;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 0 0 15px 15px; /* Rounded corners for the bottom section */
+}
+
+.offer-details h3 {
+  margin: 0;
+  font-size: 2rem;
+  text-shadow: 1px 1px 3px #000;
+}
+
+.offer-details p {
+  margin: 0.5rem 0 0;
+  font-size: 1.2rem;
+}
+
+/* Buttons for next and previous */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s ease;
+  border-radius: 50%;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+/* --- Media Queries --- */
+
+/* For smaller screens (mobile devices) */
+@media (max-width: 768px) {
+  .carousel {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .carousel-content {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .carousel-image {
+    height: 200px; /* Smaller image size on mobile */
+    width: auto;
+  }
+
+  .offer-details {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .offer-details h3 {
+    font-size: 1.5rem;
+  }
+
+  .offer-details p {
+    font-size: 1rem;
+  }
+
+  .carousel-btn {
+    font-size: 2rem;
+    padding: 0.4rem 0.8rem;
+  }
+}

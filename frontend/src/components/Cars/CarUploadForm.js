@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../utils/api";
+import Navbar from "../Navbar";
 import "../../styles/AuthPages.css";
 
 const CarUploadForm = () => {
@@ -62,89 +63,92 @@ const CarUploadForm = () => {
   };
 
   return (
-    <div className="auth-container">
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Upload a Car</h2>
-        <input
-          type="text"
-          name="title"
-          placeholder="Car Title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="brand"
-          placeholder="Brand"
-          value={formData.brand}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="model"
-          placeholder="Model"
-          value={formData.model}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="year"
-          placeholder="Year"
-          value={formData.year}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
-        <select
-          name="paymentType"
-          value={formData.paymentType}
-          onChange={handleChange}
-          required
-        >
-          <option value="cash">Cash</option>
-          <option value="installment">Installment</option>
-        </select>
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-        <input
-          type="file"
-          onChange={handleImageChange}
-          accept="image/*"
-          required
-        />
-        <button 
-          type="submit" 
-          disabled={loading}
-          style={{
-            display: "inline-block",
-            width: "100%",
-            padding: "0.7rem",
-            backgroundColor: loading ? "#999" : "#333",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            fontWeight: "600",
-            cursor: loading ? "not-allowed" : "pointer",
-            transition: "background-color 0.3s ease"
-          }}
-        >
-          {loading ? "Uploading..." : "Submit"}
-        </button>
-      </form>
+    <div>
+      <Navbar />
+      <div className="auth-container">
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <h2>Upload a Car</h2>
+          <input
+            type="text"
+            name="title"
+            placeholder="Car Title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="brand"
+            placeholder="Brand"
+            value={formData.brand}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="model"
+            placeholder="Model"
+            value={formData.model}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="year"
+            placeholder="Year"
+            value={formData.year}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+          <select
+            name="paymentType"
+            value={formData.paymentType}
+            onChange={handleChange}
+            required
+          >
+            <option value="cash">Cash</option>
+            <option value="installment">Installment</option>
+          </select>
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+          <input
+            type="file"
+            onChange={handleImageChange}
+            accept="image/*"
+            required
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              display: "inline-block",
+              width: "100%",
+              padding: "0.7rem",
+              backgroundColor: loading ? "#999" : "#333",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              fontWeight: "600",
+              cursor: loading ? "not-allowed" : "pointer",
+              transition: "background-color 0.3s ease"
+            }}
+          >
+            {loading ? "Uploading..." : "Submit"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
