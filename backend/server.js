@@ -1,4 +1,3 @@
-// ... existing imports
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -10,6 +9,7 @@ const authRoutes = require("./routes/auth");
 const carRoutes = require("./routes/car");
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin"); // New import for admin routes
+const paymentRoutes = require("./routes/payment");
 
 dotenv.config();
 
@@ -24,6 +24,7 @@ const io = new Server(server, {
   }
 });
 
+// Store connected users with their socket IDs
 const connectedUsers = {};
 
 io.on('connection', (socket) => {
@@ -31,13 +32,19 @@ io.on('connection', (socket) => {
 
   socket.on('joinUser', (userId) => {
     socket.join(userId);
-    connectedUsers[socket.id] = userId;
+    connectedUsers[userId] = socket.id;
     console.log(`User ${userId} joined their private room.`);
   });
 
   socket.on('disconnect', () => {
     console.log('❌ User disconnected:', socket.id);
-    delete connectedUsers[socket.id];
+    // Remove user from connected users
+    for (const [userId, socketId] of Object.entries(connectedUsers)) {
+      if (socketId === socket.id) {
+        delete connectedUsers[userId];
+        break;
+      }
+    }
   });
 });
 
@@ -53,6 +60,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/cars", carRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes); // New admin routes
+app.use("/api/payment", paymentRoutes);
 
 // ✅ DB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -67,5 +75,3 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => { // Use server.listen instead of app.listen
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
-// module.exports = { app, server, io }; // Or export these if needed elsewhere

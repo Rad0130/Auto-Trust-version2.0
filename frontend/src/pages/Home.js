@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../utils/api";
 import "../styles/Home.css";
 import ExclusiveOffers from "../components/Home/ExclusiveOffers";
 import Navbar from "../components/Navbar";
 import io from "socket.io-client";
+import NotificationSystem from "../components/Notifications/NotificationSystem";
+import { AuthContext } from "../context/AuthContext";
+import Footer from "../components/Footer";
 
 const socket = io("http://localhost:5000");
 
@@ -14,13 +17,18 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const fetchCars = async () => {
     setLoading(true);
     try {
       const { data } = await API.get("/cars");
-      // Filter out unapproved cars and only show the latest 10
-      setCars(data.filter((car) => car.isApproved).slice(0, 10));
+      // Get only approved cars, sort by creation date (newest first), and take first 10
+      const approvedCars = data
+        .filter((car) => car.isApproved)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 10);
+      setCars(approvedCars);
       setLoading(false);
     } catch (err) {
       console.error("Failed to fetch cars:", err);
@@ -83,6 +91,9 @@ const Home = () => {
     <div className="home-container">
       {/* Search Container at the top */}
       <div className="hero-section">
+        <div className="notification-icon-container">
+          {user && <NotificationSystem />}
+        </div>
         <div className="search-container">
           <h1 className="search-title">All the cars you need in one place</h1>
           <p className="search-subtitle">
@@ -108,6 +119,8 @@ const Home = () => {
         <h2 className="section-title">Latest Listings</h2>
         {loading ? (
           <p>Loading cars...</p>
+        ) : cars.length === 0 ? (
+          <p className="no-cars-message">No cars available at the moment.</p>
         ) : (
           <div className="latest-cars-container">
             {cars.length > 4 && (
@@ -115,7 +128,7 @@ const Home = () => {
                 &lt;
               </button>
             )}
-            
+          
             <div className="carousel-content">
               <div className="carousel-cards">
                 {visibleCars.map((car) => (
@@ -124,15 +137,16 @@ const Home = () => {
                       <img src={car.image} alt={`${car.brand} ${car.model}`} />
                       <div className="car-info">
                         <h3>{car.brand} {car.model}</h3>
-                        <p>Price: ${car.price}</p>
-                        <p>Year: {car.year}</p>
+                        <p className="car-price">Price: ${car.price.toLocaleString()}</p>
+                        <p className="car-year">Year: {car.year}</p>
+                        <p className="car-payment">{car.paymentType}</p>
                       </div>
                     </div>
                   </Link>
                 ))}
               </div>
             </div>
-            
+          
             {cars.length > 4 && (
               <button onClick={nextSlide} className="carousel-btn next-btn">
                 &gt;
@@ -147,6 +161,9 @@ const Home = () => {
         <h2 className="section-title">Exclusive Offers</h2>
         <ExclusiveOffers />
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

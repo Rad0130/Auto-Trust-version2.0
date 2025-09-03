@@ -1,5 +1,6 @@
 /* Navbar Styles */
 .navbar {
+  height: 3.5rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -19,6 +20,7 @@
 }
 
 .nav-logo {
+  padding-top: 12px;
   font-size: 1.5rem;
   font-weight: bold;
   color: #fff;
@@ -26,6 +28,7 @@
 }
 
 .nav-links {
+  padding-top: 9px;
   display: flex;
   align-items: center;
 }
@@ -73,6 +76,32 @@
 .user-greeting{
   margin-left: 20rem;
 }
+
+
+/* Navbar notification container */
+.nav-notification-container {
+  margin-left: auto;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile responsive for navbar notifications */
+@media (max-width: 768px) {
+  .nav-notification-container {
+    margin-right: 10px;
+  }
+  
+  .nav-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .nav-logo {
+    margin-bottom: 0;
+  }
+}
+
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {

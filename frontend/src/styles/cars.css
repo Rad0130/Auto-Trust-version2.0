@@ -5,6 +5,7 @@ body {
   min-height: 100vh;
 }
 
+/* Hero section for cars page */
 .hero-section {
   display: flex;
   flex-direction: column;
@@ -13,28 +14,36 @@ body {
   text-align: center;
   position: relative;
   z-index: 1;
-  padding: 0; /* Remove padding */
+  padding: 0;
 }
 
-.search-container {
+.hero-section .search-container {
   background: rgba(0, 0, 0, 0.7);
   padding: 2rem 1rem;
-  border-radius: 0 0 10px 10px; /* Rounded corners only at bottom */
-  width: 98%; /* Full width */
-  margin-bottom: 0; /* Remove margin */
+  border-radius: 0 0 10px 10px;
+  width: 100%;
+  margin-bottom: 0;
 }
 
-.search-title {
+.hero-section .search-title {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: white;
 }
 
-.search-subtitle {
+.hero-section .search-subtitle {
   font-size: 1.2rem;
   color: #ccc;
   margin-bottom: 2rem;
+}
+
+/* Notification icon container in hero section */
+.notification-icon-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
 }
 
 .search-form {

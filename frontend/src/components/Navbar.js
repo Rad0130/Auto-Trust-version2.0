@@ -2,21 +2,31 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/Navbar.css";
+import NotificationSystem from "./Notifications/NotificationSystem";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Manage menu visibility
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Toggle the menu on mobile
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Don't show notifications in navbar for Home and Cars pages
+  const showNotificationsInNavbar = !['/', '/cars'].includes(window.location.pathname);
 
   return (
     <nav className="navbar">
       <div className="nav-content">
         <Link to="/" className="nav-logo">AutoTrust</Link>
         
+        {/* Show notifications in navbar for other pages */}
+        {showNotificationsInNavbar && user && (
+          <div className="nav-notification-container">
+            <NotificationSystem />
+          </div>
+        )}
+      
         <div className="hamburger" onClick={toggleMenu}>
           <span className="hamburger-icon">&#9776;</span>
         </div>

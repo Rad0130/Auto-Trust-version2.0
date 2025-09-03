@@ -1,0 +1,145 @@
+.footer {
+  background-color: black;
+  color: #ecf0f1;
+  padding: 2rem 0 0;
+  margin-top: 3rem;
+  opacity: 0.7;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.footer-logo h2 {
+  color: #3498db;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.footer-vision {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #bdc3c7;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icons a,
+.social-icon-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-color: #34495e;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  color: #ecf0f1;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.social-icons a:hover,
+.social-icon-btn:hover {
+  background-color: #3498db;
+  transform: translateY(-3px);
+}
+
+.footer-section h3 {
+  color: #3498db;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links button {
+  background: none;
+  border: none;
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.footer-links button:hover {
+  color: #3498db;
+  text-decoration: underline;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #bdc3c7;
+}
+
+.contact-info i {
+  margin-right: 10px;
+  color: #3498db;
+  width: 20px;
+}
+
+.footer-bottom {
+  background-color: #1a252f;
+  padding: 1rem 0;
+  text-align: center;
+  border-top: 1px solid #34495e;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
+  
+  .footer-section {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+  
+  .contact-info p {
+    justify-content: center;
+  }
+  
+  .footer-links button {
+    text-align: center;
+  }
+}

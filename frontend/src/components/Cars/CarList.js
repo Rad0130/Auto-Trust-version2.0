@@ -1,65 +1,70 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import API from "../../utils/api";
 import { AuthContext } from "../../context/AuthContext";
-import Navbar from "../Navbar";
 import "../../styles/cars.css";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Navbar from "../Navbar";
+import NotificationSystem from "../Notifications/NotificationSystem";
 
 const CarList = () => {
   const [cars, setCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredCars, setFilteredCars] = useState([]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams(); // Removed setSearchParams since it's not used
 
-  const fetchCars = async () => {
+  // Get search term from URL if it exists
+  useEffect(() => {
+    const searchQuery = searchParams.get("search");
+    if (searchQuery) {
+      setSearchTerm(searchQuery);
+    }
+  }, [searchParams]);
+
+  // Use useCallback to memoize fetchCars function
+  const fetchCars = useCallback(async () => {
     try {
-      const res = await API.get("/cars");
+      const url = searchTerm ? `/cars?search=${searchTerm}` : "/cars";
+      const res = await API.get(url);
       setCars(res.data);
-      setFilteredCars(res.data);
     } catch (err) {
       alert("Failed to load cars.");
     }
-  };
+  }, [searchTerm]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchTerm.trim() === "") {
-      setFilteredCars(cars);
-    } else {
-      const filtered = cars.filter(
-        (car) =>
-          car.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          car.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          car.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredCars(filtered);
-    }
+    fetchCars();
   };
 
   const handlePurchase = (carId) => {
-    if (!user) {
-      alert("Please login to purchase a car");
-      navigate("/login");
-      return;
-    }
-    // Add purchase logic here
-    alert(`Purchase request sent for car ${carId}`);
+  if (!user) {
+    alert("Please login to purchase a car");
+    navigate("/login");
+    return;
+  }
+  
+  // Navigate to payment form
+  navigate(`/payment/${carId}`);
   };
 
   useEffect(() => { 
     fetchCars(); 
-  }, []);
+  }, [fetchCars]); // Added fetchCars to dependency array
 
   return (
-    <div className="container">
-      {/* Search Container at the top */}
+    <div>
+      {/* Hero Section for Cars Page */}
       <div className="hero-section">
+        <div className="notification-icon-container">
+          {user && <NotificationSystem />}
+        </div>
         <div className="search-container">
-          <h1 className="search-title">Find Your Dream Car</h1>
+          <h1 className="search-title">Browse All Cars</h1>
           <p className="search-subtitle">
-            Browse our extensive collection of quality vehicles.
+            Find your perfect vehicle from our extensive collection.
           </p>
+          {/* Add search form to Cars page */}
           <form className="search-form" onSubmit={handleSearch}>
             <input
               type="text"
@@ -72,28 +77,61 @@ const CarList = () => {
         </div>
       </div>
 
-      {/* Navbar below the search container */}
+      {/* Navbar */}
       <Navbar />
 
-      <div style={{ padding: "20px" }}>
-        <h2>Available Cars</h2>
-        <div className="car-grid">
-          {filteredCars.map((car) => (
-            <div key={car._id} className="car-card">
-              {car.image && <img src={car.image} alt={car.title} className="car-image" style={{width:"100%"}} />}
-              <h3>{car.title}</h3>
-              <p>Brand: {car.brand}</p>
-              <p>Model: {car.model}</p>
-              <p>Year: {car.year}</p>
-              <p>Price: ${car.price}</p>
-              <button
-                onClick={() => handlePurchase(car._id)}
-                className="purchase-btn"
+      <div className="container">
+        <div style={{ padding: "20px" }}>
+          {/* Show search results info if searching */}
+          {searchTerm && (
+            <div style={{ marginBottom: "20px", color: "white" }}>
+              <h3>Search Results for: "{searchTerm}"</h3>
+              <p>{cars.length} car(s) found</p>
+              <button 
+                onClick={() => {
+                  setSearchTerm("");
+                  fetchCars();
+                }}
+                style={{
+                  backgroundColor: "#666",
+                  color: "white",
+                  border: "none",
+                  padding: "8px 16px",
+                  borderRadius: "4px",
+                  cursor: "pointer"
+                }}
               >
-                Purchase
+                Clear Search
               </button>
             </div>
-          ))}
+          )}
+          
+          <h2>Available Cars</h2>
+          <div className="car-grid">
+            {cars.map((car) => (
+              <div key={car._id} className="car-card">
+                {car.image && <img src={car.image} alt={car.title} className="car-image" style={{width:"100%"}} />}
+                <h3>{car.title}</h3>
+                <p>Brand: {car.brand}</p>
+                <p>Model: {car.model}</p>
+                <p>Year: {car.year}</p>
+                <p>Price: ${car.price}</p>
+                <button
+                  onClick={() => handlePurchase(car._id)}
+                  className="purchase-btn"
+                >
+                  Purchase
+                </button>
+              </div>
+            ))}
+          </div>
+          
+          {cars.length === 0 && (
+            <div style={{ textAlign: "center", color: "white", marginTop: "40px" }}>
+              <h3>No cars found</h3>
+              <p>Try adjusting your search criteria or browse all cars</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

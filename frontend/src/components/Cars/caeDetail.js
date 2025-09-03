@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../../utils/api";
-import { AuthContext } from "../../context/AuthContext";
 import Navbar from "../Navbar";
 import "../../styles/caeDetail.css";
 
 const CarDetail = () => {
   const { id } = useParams(); // Get car ID from the URL
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
 
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,15 +28,8 @@ const CarDetail = () => {
   }, [id]);
 
   const handlePurchase = () => {
-    if (!user) {
-      alert("Please log in to purchase this car.");
-      navigate("/login");
-      return;
-    }
-    // Implement actual purchase logic here (e.g., send a request to backend)
-    alert(`Purchase request sent for ${car.brand} ${car.model}!`);
-    // Optionally, navigate to a confirmation page or user dashboard
-    // navigate('/user-dashboard');
+    // Navigate to payment form with the correct car ID
+    navigate(`/payment/${id}`);
   };
 
   if (loading) {
