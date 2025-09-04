@@ -89,44 +89,83 @@
   right: 10px;
 }
 
-/* --- Media Queries --- */
+/* Add these media queries at the end of the file */
 
-/* For smaller screens (mobile devices) */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .carousel {
-    max-width: 100%;
-    padding: 0 1rem;
+    max-width: 90%;
   }
-
-  .carousel-content {
-    flex-direction: row;
-    align-items: flex-start;
+  
+  .offer-details h3 {
+    font-size: 1.7rem;
   }
+}
 
-  .carousel-image {
-    height: 200px;
-    width: auto;
+@media (max-width: 768px) {
+  .exclusive-offers-container {
+    margin-top: 2rem;
   }
-
+  
+  .carousel {
+    max-width: 95%;
+  }
+  
   .offer-details {
-    font-size: 1rem;
     padding: 1rem;
   }
-
+  
   .offer-details h3 {
     font-size: 1.5rem;
   }
-
+  
   .offer-details p {
     font-size: 1rem;
   }
-
+  
   .carousel-btn {
-    font-size: 2rem;
-    padding: 0.4rem 0.8rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .exclusive-offers-container {
+    margin-top: 1.5rem;
+  }
+  
+  .carousel {
+    border-radius: 8px;
+  }
+  
+  .offer-details {
+    padding: 0.8rem;
+  }
+  
+  .offer-details h3 {
+    font-size: 1.3rem;
+  }
+  
+  .offer-details p {
+    font-size: 0.9rem;
   }
   
   .click-hint {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .prev-btn {
+    left: 5px;
+  }
+  
+  .next-btn {
+    right: 5px;
   }
 }

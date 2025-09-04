@@ -230,59 +230,94 @@
   cursor: pointer;
 }
 
-/* --- Media Queries --- */
+/* Add these media queries at the end of the file */
 
-@media (max-width: 768px) {
-  .car-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-height: none;
-  }
-
-  .car-card img {
-    width: 100%;
-    height: auto;
-  }
-
-  .car-details,
-  .car-actions {
-    text-align: center;
-    padding: 1rem 0.5rem;
-    width: 100%;
-  }
-
-  .car-actions {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  .approve-btn,
-  .reject-btn,
-  .verify-btn {
-    width: 48%; /* Adjust button width for small screens */
-  }
-
-  .offers-management .car-list {
-    grid-template-columns: 1fr;
+@media (max-width: 1024px) {
+  .admin-container {
+    padding: 0 1.5rem;
   }
   
-  .pending-cars .car-list {
-    grid-template-columns: 1fr;
+  .admin-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  
+  .admin-tabs button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .car-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-container {
+    margin: 1rem auto;
+    padding: 0 1rem;
+  }
+  
+  .admin-container h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .car-card {
+    flex-direction: column;
+  }
+  
+  .car-card img {
+    width: 100%;
+    height: 180px;
+  }
+  
+  .users-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .users-table th,
+  .users-table td {
+    padding: 0.6rem;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
-  .users-table th,
-  .users-table td {
-    font-size: 0.8rem;
-    padding: 0.5rem;
+  .admin-container {
+    padding: 0 0.5rem;
   }
-
+  
+  .admin-tabs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .admin-tabs button {
+    width: 100%;
+    text-align: center;
+    padding: 0.8rem;
+  }
+  
+  .car-details h3 {
+    font-size: 1rem;
+  }
+  
+  .car-details p {
+    font-size: 0.8rem;
+  }
+  
+  .car-actions {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
   .approve-btn,
   .reject-btn,
   .verify-btn {
+    width: 100%;
     font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
   }
 }

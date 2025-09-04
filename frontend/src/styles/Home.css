@@ -19,6 +19,7 @@ body {
   position: relative;
   z-index: 1;
   padding: 0; /* Remove padding */
+  width: 98%;
 }
 
 .search-container {
@@ -243,45 +244,32 @@ body {
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
+/* Add these media queries at the end of the file */
+
+@media (max-width: 1200px) {
   .car-card-link {
-    flex: 0 0 31%; /* 3 cards per row on tablets */
+    flex: 0 0 31%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .search-form {
+    width: 70%;
+  }
+  
+  .car-card-link {
+    flex: 0 0 48%;
+    margin: 0 1%;
+  }
+  
+  .latest-cars-container {
+    height: 380px;
   }
 }
 
 @media (max-width: 768px) {
-  .search-form {
-    width: 90%;
-  }
-  
-  .car-card-link {
-    flex: 0 0 48%; /* 2 cards per row on mobile */
-  }
-  
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-  
-  .prev-btn {
-    left: -15px;
-  }
-  
-  .next-btn {
-    right: -15px;
-  }
-  
-  .latest-cars-container {
-    height: 450px; /* Slightly taller for mobile view */
-  }
-}
-
-@media (max-width: 480px) {
-  .car-card-link {
-    flex: 0 0 96%; /* 1 card per row on small mobile */
-    margin: 0 2%;
+  .search-container {
+    padding: 1.5rem 1rem;
   }
   
   .search-title {
@@ -290,10 +278,81 @@ body {
   
   .search-subtitle {
     font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-form {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .search-form input {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .search-btn {
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+  }
+  
+  .content-section {
+    margin: 2rem auto;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .car-card-link {
+    flex: 0 0 96%;
+    margin: 0 2%;
   }
   
   .latest-cars-container {
-    height: 500px; /* Taller for single card view */
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .carousel-content {
+    flex-direction: column;
+  }
+  
+  .carousel-cards {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .car-card {
+    height: auto;
+  }
+  
+  .carousel-btn {
+    position: static;
+    transform: none;
+    margin: 1rem 0.5rem;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .search-title {
+    font-size: 1.7rem;
+  }
+  
+  .content-section {
+    margin: 1.5rem auto;
+    padding: 0 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
   }
   
   .car-card {
@@ -302,5 +361,10 @@ body {
   
   .car-info h3 {
     font-size: 1.1rem;
+  }
+  
+  .notification-icon-container {
+    top: 10px;
+    right: 10px;
   }
 }

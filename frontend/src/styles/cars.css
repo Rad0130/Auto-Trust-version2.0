@@ -133,42 +133,57 @@ body {
   background-color: #0b7dda;
 }
 
-/* Desktop Style */
-@media (min-width: 1024px) {
-  .car-grid {
-    grid-template-columns: repeat(4, 1fr); /* Show 4 cards per row */
-    padding: 40px;
-  }
-
-  /* Adjust card layout for larger screens */
-  .car-card {
-    padding: 20px;
-    height: 450px; /* Give enough space for content */
-  }
-
-  .car-image {
-    height: 250px; /* Ensure the image has enough space */
-  }
-}
-
-h2 {
-  color: white;
-  text-align: center;
-  padding: 20px 0 0 0;
-  margin: 0;
-}
-
-/* Responsive adjustments for smaller screens */
+/* Add these media queries at the end of the file */
 @media (max-width: 768px) {
-  .search-form {
-    width: 90%;
-  }
-
-  .search-title {
+  .hero-section .search-title {
     font-size: 2rem;
   }
-
-  .search-subtitle {
+  
+  .hero-section .search-subtitle {
     font-size: 1rem;
+  }
+  
+  .search-form {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .search-form input {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .search-btn {
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+  }
+  
+  .car-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 15px;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section .search-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .hero-section .search-title {
+    font-size: 1.7rem;
+  }
+  
+  .car-grid {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+  
+  .car-card {
+    padding: 12px;
+  }
+  
+  .car-image {
+    height: 160px;
   }
 }

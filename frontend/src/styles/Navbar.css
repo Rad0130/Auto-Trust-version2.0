@@ -86,52 +86,91 @@
   align-items: center;
 }
 
-/* Mobile responsive for navbar notifications */
-@media (max-width: 768px) {
-  .nav-notification-container {
-    margin-right: 10px;
-  }
-  
+
+/* Add these media queries at the end of the file */
+
+@media (max-width: 1024px) {
   .nav-content {
-    flex-direction: row;
-    justify-content: space-between;
+    padding: 0 1.5rem;
   }
   
-  .nav-logo {
-    margin-bottom: 0;
+  .user-greeting {
+    margin-left: 10rem;
   }
 }
 
-
-/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    min-height: 3.5rem;
+    border-radius: 0;
+  }
+  
   .nav-content {
     flex-direction: column;
-    text-align: center;
+    padding: 0.5rem 1rem;
   }
-
+  
   .nav-logo {
-    margin-bottom: 1rem;
+    padding-top: 0;
+    margin-bottom: 0.5rem;
   }
-
-  /* Show the hamburger menu on small screens */
-  .hamburger {
-    display: block;
-  }
-
+  
   .nav-links {
-    display: none; /* Hide the menu by default */
+    padding-top: 0;
+    width: 100%;
     flex-direction: column;
-    gap: 0.5rem;
+    display: none;
   }
-
-  /* Display the menu when it's active */
+  
   .nav-links.active {
     display: flex;
   }
-
+  
   .nav-btn {
-    padding: 1rem 2rem;
     width: 100%;
+    text-align: center;
+    margin: 0.25rem 0;
+    padding: 0.8rem;
+  }
+  
+  .user-greeting {
+    margin-left: 0;
+    text-align: center;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+  
+  .hamburger {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+  
+  .nav-notification-container {
+    position: absolute;
+    left: 1rem;
+    top: 0.8rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-content {
+    padding: 0.5rem;
+  }
+  
+  .nav-logo {
+    font-size: 1.3rem;
+  }
+  
+  .nav-btn {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+  
+  .user-greeting {
+    font-size: 0.9rem;
   }
 }

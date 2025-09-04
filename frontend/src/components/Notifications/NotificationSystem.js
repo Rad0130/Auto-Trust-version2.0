@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import io from "socket.io-client";
 import "../../styles/Notifications.css";
 
-const socket = io("http://localhost:5000"); // Connect to your backend
+const socket = io("https://auto-trust-version2-0.onrender.com"); // Connect to your backend
 
 const NotificationSystem = () => {
   const { user } = useContext(AuthContext);

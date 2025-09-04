@@ -36,10 +36,32 @@ body {
  border-radius: 5px;
 }
 
-/* --- Media Queries --- */
+/* Add these media queries at the end of the file */
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1rem;
+  }
+  
+  .auth-form {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .auth-form h2 {
+    font-size: 1.5rem;
+  }
+}
 
 @media (max-width: 480px) {
- .auth-form {
-  padding: 1.5rem;
- }
+  .auth-form {
+    padding: 1.2rem;
+    margin: 0.5rem;
+  }
+  
+  .auth-form input,
+  .auth-form select {
+    padding: 0.8rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
 }

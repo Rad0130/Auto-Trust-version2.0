@@ -116,16 +116,55 @@
   align-items: center;
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
+
+/* Add these media queries at the end of the file */
+
+@media (max-width: 1024px) {
+  .car-detail-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .car-detail-container {
+    padding: 1rem;
+  }
+  
+  .car-detail-card {
+    flex-direction: column;
+  }
+  
+  .car-detail-image {
+    width: 100%;
+    height: 250px;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+  
   .car-detail-info h1 {
     font-size: 2rem;
   }
+  
   .car-detail-info p {
     font-size: 1rem;
   }
+}
+
+@media (max-width: 480px) {
+  .car-detail-container {
+    padding: 0.5rem;
+  }
+  
+  .car-detail-info {
+    padding: 1.5rem;
+  }
+  
+  .car-detail-info h1 {
+    font-size: 1.7rem;
+  }
+  
   .purchase-btn {
-    font-size: 1rem;
     padding: 0.8rem;
+    font-size: 1rem;
   }
 }
