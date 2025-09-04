@@ -9,7 +9,7 @@ import NotificationSystem from "../components/Notifications/NotificationSystem";
 import { AuthContext } from "../context/AuthContext";
 import Footer from "../components/Footer";
 
-const socket = io("https://auto-trust-version2-0.onrender.com");
+const socket = io("http://localhost:5000");
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
